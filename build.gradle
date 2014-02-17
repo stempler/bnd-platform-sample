@@ -19,6 +19,7 @@ project.ext {
 	// project specific variables
 	groovyVersion = '2.1.5'
 	slf4jVersion = '1.7.5'
+	schemacrawlerVersion = '8.16'
 }
 
 configurations {
@@ -41,16 +42,25 @@ platform {
 	// fetch sources for dependencies if possible (result in source bundles)
 	fetchSources = true
 	
-	// dependencies can be declared in the extension as well
+	// dependencies can be declared in the extension
 	// (in fact, they need to be, if a custom bnd configuration is needed)
-	//TODO not yet supported
-//	deps {
-//		'net.sourceforge.schemacrawler:schemacrawler:8.16' {
-//			bnd {
-//				Import-Package('freemarker.*;resolution:=optional,*')
-//			}
-//		}
-//	}
+	
+	// database
+	bundle "net.sourceforge.schemacrawler:schemacrawler:$schemacrawlerVersion", {
+		bnd {
+			// custom bnd configuration
+			instruction 'Import-Package', 'freemarker.*;resolution:=optional,*' // freemarker is optional
+			// export schemacrawler only
+			instruction 'Export-Package', """
+					schemacrawler;version=$schemacrawlerVersion,
+					schemacrawler.*;version=$schemacrawlerVersion"""
+			instruction 'Private-Package', '*' // other packages private
+		}
+	}
+	bundle 'com.thoughtworks.xstream:xstream:1.4.5' // dependency of schemacrawler not listed in pom!
+	
+	// security
+	bundle 'org.jasig.cas:cas-client:3.1.10'
 }
 
 dependencies {
@@ -88,9 +98,6 @@ dependencies {
 	// jackson 2
 	platform 'com.fasterxml.jackson.core:jackson-core:2.3.0'
 	platform 'com.fasterxml.jackson.core:jackson-databind:2.3.0'
-	
-	// security
-	platform 'org.jasig.cas:cas-client:3.1.10'
 	
 	// local dependencies
 	//TODO not yet supported

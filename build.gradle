@@ -52,8 +52,8 @@ platform {
 			instruction 'Import-Package', 'freemarker.*;resolution:=optional,*' // freemarker is optional
 			// export schemacrawler only
 			instruction 'Export-Package', """
-					schemacrawler;version=$schemacrawlerVersion,
-					schemacrawler.*;version=$schemacrawlerVersion"""
+					schemacrawler;version=$version,
+					schemacrawler.*;version=$version"""
 			instruction 'Private-Package', '*' // other packages private
 		}
 	}
@@ -61,10 +61,25 @@ platform {
 	
 	// security
 	bundle 'org.jasig.cas:cas-client:3.1.10'
+	
+	// logging
+	bundle "org.slf4j:slf4j-api:${slf4jVersion}"
+	bundle "org.slf4j:log4j-over-slf4j:${slf4jVersion}"
+	bundle "org.slf4j:jul-to-slf4j:${slf4jVersion}"
+	bundle "org.slf4j:slf4j-ext:${slf4jVersion}"
+	bundle 'ch.qos.logback:logback-classic:1.0.13'
+	bundle 'ch.qos.logback:logback-core:1.0.13'
+	
+	// utilities
+	bundle 'com.google.guava:guava:16.0.1'
+	bundle 'net.sf.trove4j:trove4j:3.0.3'
+	bundle 'commons-io:commons-io:2.4'
+	bundle 'net.sf.ehcache:ehcache-core:2.6.6'
+	bundle group: 'org.pegdown', name: 'pegdown', version: '1.4.2'
 }
 
 dependencies {
-	// platform dependencies defined w/o bundle customization
+	// platform dependencies can also be defined here (w/o bnd configuration)
 	
 	// groovy (use groovy-all)
 	platform "org.codehaus.groovy:groovy-all:${groovyVersion}"
@@ -73,21 +88,6 @@ dependencies {
 		// exclude groovy dependency
 		exclude group: 'org.codehaus.groovy', module: 'groovy'
 	}
-	
-	// logging
-	platform "org.slf4j:slf4j-api:${slf4jVersion}"
-	platform "org.slf4j:log4j-over-slf4j:${slf4jVersion}"
-	platform "org.slf4j:jul-to-slf4j:${slf4jVersion}"
-	platform "org.slf4j:slf4j-ext:${slf4jVersion}"
-	platform 'ch.qos.logback:logback-classic:1.0.13'
-	platform 'ch.qos.logback:logback-core:1.0.13'
-	
-	// utilities
-	platform 'com.google.guava:guava:16.0.1'
-	platform 'net.sf.trove4j:trove4j:3.0.3'
-	platform 'commons-io:commons-io:2.4'
-	platform 'net.sf.ehcache:ehcache-core:2.6.6'
-	platform group: 'org.pegdown', name: 'pegdown', version: '1.4.2'
 	
 	// XML
 	platform 'org.apache.ws.xmlschema:xmlschema-core:2.0.2'

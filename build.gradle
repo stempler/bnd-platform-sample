@@ -15,6 +15,9 @@ repositories {
 	// ivy {   url "http://repo.mycompany.com/repo"}
 }
 
+// project version is also platform feature version default
+version = '1.2.0'
+
 project.ext {
 	// project specific variables
 	groovyVersion = '2.1.5'

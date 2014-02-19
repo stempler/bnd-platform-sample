@@ -76,6 +76,18 @@ platform {
 	bundle 'commons-io:commons-io:2.4'
 	bundle 'net.sf.ehcache:ehcache-core:2.6.6'
 	bundle group: 'org.pegdown', name: 'pegdown', version: '1.4.2'
+	
+	// local dependencies
+	
+	// single file
+	bundle file('libs/groovy-sandbox-1.6-SNAPSHOT.jar'), {
+		bnd {
+			version = '1.6.0.hale'
+			symbolicName = 'org.kohsuke.groovy.sandbox'
+			bundleName = 'Groovy Sandbox (adapted)'
+			instruction 'Export-Package', "*;version=$version"
+		}
+	}
 }
 
 dependencies {
@@ -98,10 +110,6 @@ dependencies {
 	// jackson 2
 	platform 'com.fasterxml.jackson.core:jackson-core:2.3.0'
 	platform 'com.fasterxml.jackson.core:jackson-databind:2.3.0'
-	
-	// local dependencies
-	//TODO not yet supported
-	platform files('libs/groovy-sandbox-1.6-SNAPSHOT.jar')
 }
 
 task wrapper(type: Wrapper) {

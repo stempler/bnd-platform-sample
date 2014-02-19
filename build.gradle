@@ -1,5 +1,6 @@
 
 apply plugin: org.standardout.gradle.plugin.platform.PlatformPlugin
+apply plugin: org.standardout.gradle.plugin.include.IncludePlugin
 
 defaultTasks 'clean', 'updateSite'
 
@@ -21,7 +22,6 @@ version = '1.2.0'
 project.ext {
 	// project specific variables
 	groovyVersion = '2.1.5'
-	slf4jVersion = '1.7.5'
 	schemacrawlerVersion = '8.16'
 }
 
@@ -31,11 +31,18 @@ configurations {
 		exclude group: 'log4j'
 		
 		resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-			if (details.requested.name == 'commons-logging') {
-				// prefer 'jcl-over-slf4j' over 'commons-logging'
-				details.useTarget "org.slf4j:jcl-over-slf4j:${slf4jVersion}"
+			if (details.requested.group == 'org.codehaus.groovy') {
+				// always use groovy-all instead of (groovy-*)
+				details.useTarget "org.codehaus.groovy:groovy-all:${groovyVersion}"
 			}
 		}
+	}
+}
+
+include {
+	// include modules with platform configuration
+	location('modules/logging.groovy') {
+		slf4jAndLogback '1.7.0', '1.0.10' // slf4j and logback with customized versions
 	}
 }
 
@@ -62,16 +69,11 @@ platform {
 	}
 	bundle 'com.thoughtworks.xstream:xstream:1.4.5' // dependency of schemacrawler not listed in pom!
 	
+	// groovy
+	bundle "org.codehaus.groovy:groovy-all:${groovyVersion}"
+	
 	// security
 	bundle 'org.jasig.cas:cas-client:3.1.10'
-	
-	// logging
-	bundle "org.slf4j:slf4j-api:${slf4jVersion}"
-	bundle "org.slf4j:log4j-over-slf4j:${slf4jVersion}"
-	bundle "org.slf4j:jul-to-slf4j:${slf4jVersion}"
-	bundle "org.slf4j:slf4j-ext:${slf4jVersion}"
-	bundle 'ch.qos.logback:logback-classic:1.0.13'
-	bundle 'ch.qos.logback:logback-core:1.0.13'
 	
 	// utilities
 	bundle 'com.google.guava:guava:16.0.1'
@@ -96,12 +98,9 @@ platform {
 dependencies {
 	// platform dependencies can also be defined here (w/o bnd configuration)
 	
-	// groovy (use groovy-all)
-	platform "org.codehaus.groovy:groovy-all:${groovyVersion}"
-	
 	platform 'org.codehaus.groovy.modules.http-builder:http-builder:0.6', {
 		// exclude groovy dependency
-		exclude group: 'org.codehaus.groovy', module: 'groovy'
+//		exclude group: 'org.codehaus.groovy', module: 'groovy'
 	}
 	
 	// XML

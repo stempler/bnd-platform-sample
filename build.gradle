@@ -93,6 +93,11 @@ platform {
 			instruction 'Export-Package', "*;version=$version"
 		}
 	}
+	
+	// bnd configurations (just configuration, not adding a dependency)
+	bnd group: 'xml-apis', name: 'xml-apis', {
+		instruction 'Private-Package', 'license' // we don't want to export 'license' as package
+	}
 }
 
 dependencies {

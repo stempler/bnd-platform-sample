@@ -65,6 +65,8 @@ platform {
 					schemacrawler;version=$version,
 					schemacrawler.*;version=$version"""
 			instruction 'Private-Package', '*' // other packages private
+			
+			version = schemacrawlerVersion + '.0.customwrap'
 		}
 	}
 	bundle 'com.thoughtworks.xstream:xstream:1.4.5' // dependency of schemacrawler not listed in pom!

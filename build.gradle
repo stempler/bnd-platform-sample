@@ -5,6 +5,10 @@ apply plugin: org.standardout.gradle.plugin.include.IncludePlugin
 defaultTasks 'clean', 'updateSite'
 
 repositories {
+	maven {
+		// must be first (before maven central) so javax.media:jai-core can be resolved
+		url 'http://download.osgeo.org/webdav/geotools/'
+	}
 	mavenLocal()
 	mavenCentral()
 	maven {
@@ -43,6 +47,9 @@ include {
 	// include modules with platform configuration
 	location('modules/logging.groovy') {
 		slf4jAndLogback '1.7.0', '1.0.10' // slf4j and logback with customized versions
+	}
+	location('modules/geotools.groovy') {
+		geotools()
 	}
 }
 

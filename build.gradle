@@ -100,6 +100,13 @@ platform {
 	bnd group: 'xml-apis', name: 'xml-apis', {
 		instruction 'Private-Package', 'license' // we don't want to export 'license' as package
 	}
+	
+	// later bnd configurations augment and possibly override previously defined configuration
+	// they do not override, if they are more general (e.g. only name defined instead of group and name)
+	bnd name: 'xml-apis', {
+		bundleName = 'XML APIs' // set's bundle name
+		instruction 'Private-Package', '' // does not override instruction in previous bnd 
+	}
 }
 
 dependencies {

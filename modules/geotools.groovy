@@ -73,7 +73,7 @@ def geotools(String geotoolsVersion = '10.4', String bundleVersion = '10.4.0.com
 				bundleName = 'Geotools'
 				version = bundleVersion
 				instruction 'Export-Package', "org.geotools.*;version=$bundleVersion"
-				instruction 'Private-Paclage', '*'
+				instruction 'Private-Package', '*'
 			}
 		}
 	}

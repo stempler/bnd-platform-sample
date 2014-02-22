@@ -31,9 +31,7 @@ project.ext {
 
 configurations {
 	platform {
-		// exclude log4j (we provide it over slf4j)
-		exclude group: 'log4j'
-		
+		// groovy
 		resolutionStrategy.eachDependency { DependencyResolveDetails details ->
 			if (details.requested.group == 'org.codehaus.groovy') {
 				// always use groovy-all instead of (groovy-*)
@@ -46,7 +44,7 @@ configurations {
 include {
 	// include modules with platform configuration
 	location('modules/logging.groovy') {
-		slf4jAndLogback '1.7.0', '1.0.10' // slf4j and logback with customized versions
+		slf4jAndLogback '1.7.2', '1.0.10' // slf4j and logback with customized versions
 	}
 	location('modules/geotools.groovy') {
 		geotools()
@@ -54,9 +52,8 @@ include {
 	from 'modules/orientdb.groovy', {
 		orientGraphDB()
 	}
-	from('modules/common.groovy') {
-		bnd()
-	}
+	from 'modules/common.groovy'
+	from 'modules/schemacrawler.groovy'
 }
 
 platform {
@@ -70,27 +67,13 @@ platform {
 	// (to protect the existing imports and exports)
 	bnd {
 		// sun.* and com.sun.* packages are optional by default
-		optionalImport 'sun.*', 'com.sun.*'
+		optionalImport 'sun.*', 'com.sun.*',
+			// unit tests only dependencies should be optional as well 
+			'junit.framework', 'org.junit'
 	}
 	
 	// dependencies can be declared in the extension
 	// (in fact, they need to be, if a custom bnd configuration is needed)
-	
-	// database
-	bundle "net.sourceforge.schemacrawler:schemacrawler:$schemacrawlerVersion", {
-		bnd {
-			// custom bnd configuration
-			optionalImport 'freemarker.*'
-			// export schemacrawler only
-			instruction 'Export-Package', """
-					schemacrawler;version=$version,
-					schemacrawler.*;version=$version"""
-			instruction 'Private-Package', '*' // other packages private
-			
-			version = schemacrawlerVersion + '.0.customwrap'
-		}
-	}
-	bundle 'com.thoughtworks.xstream:xstream:1.4.5' // dependency of schemacrawler not listed in pom!
 	
 	// groovy
 	bundle "org.codehaus.groovy:groovy-all:${groovyVersion}"

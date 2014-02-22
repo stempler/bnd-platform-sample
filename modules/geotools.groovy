@@ -52,5 +52,8 @@ def geotools(String geotoolsVersion = '10.4', String bundleVersion = '10.4.0.com
 				instruction 'Private-Package', '*'
 			}
 		}
+		
+		// geotools depends on log4j
+		bundle group: 'log4j', name: 'log4j'
 	}
 }

@@ -51,8 +51,11 @@ include {
 	location('modules/geotools.groovy') {
 		geotools()
 	}
-	location('modules/orientdb.groovy') {
-		orientDB()
+	from 'modules/orientdb.groovy', {
+		orientGraphDB()
+	}
+	from('modules/common.groovy') {
+		bnd()
 	}
 }
 
@@ -62,6 +65,14 @@ platform {
 	// fetch sources for dependencies if possible (result in source bundles)
 	fetchSources = true
 	
+	// extend/override the default bnd configuration
+	// the default bnd configuration does not apply to Jars that are already bundles
+	// (to protect the existing imports and exports)
+	bnd {
+		// sun.* and com.sun.* packages are optional by default
+		optionalImport 'sun.*', 'com.sun.*'
+	}
+	
 	// dependencies can be declared in the extension
 	// (in fact, they need to be, if a custom bnd configuration is needed)
 	
@@ -69,7 +80,7 @@ platform {
 	bundle "net.sourceforge.schemacrawler:schemacrawler:$schemacrawlerVersion", {
 		bnd {
 			// custom bnd configuration
-			instruction 'Import-Package', 'freemarker.*;resolution:=optional,*' // freemarker is optional
+			optionalImport 'freemarker.*'
 			// export schemacrawler only
 			instruction 'Export-Package', """
 					schemacrawler;version=$version,
@@ -91,7 +102,12 @@ platform {
 	bundle 'com.google.guava:guava:16.0.1'
 	bundle 'net.sf.trove4j:trove4j:3.0.3'
 	bundle 'commons-io:commons-io:2.4'
-	bundle 'net.sf.ehcache:ehcache-core:2.6.6'
+	bundle 'net.sf.ehcache:ehcache-core:2.6.6', {
+		bnd {
+			// make hibernate packages optional
+			optionalImport 'org.hibernate', 'org.hibernate.*'
+		}
+	}
 	bundle group: 'org.pegdown', name: 'pegdown', version: '1.4.2'
 	
 	// local dependencies

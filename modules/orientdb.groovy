@@ -1,4 +1,23 @@
-def orientDB(String orientDBVersion = '1.5.1') {
+/**
+ * Include Orient Graph database. Calls orientCore(...).
+ */
+def orientGraphDB(String orientDBVersion = '1.5.1') {
+	orientCore(orientDBVersion)
+	
+	platform {
+		bundle group: 'com.orientechnologies', name: 'orientdb-graphdb'
+		
+		bnd group: 'com.tinkerpop.gremlin', name: 'gremlin-groovy', {
+			// adapt gremlin configuration
+			optionalImport 'com.tinkerpop.blueprints.impls.sail'
+		}
+	}
+}
+
+/**
+ * Orient DB core bundles and fixed versions for all OrientDB bundles.
+ */
+def orientCore(String orientDBVersion = '1.5.1') {
 	def orientGroup = 'com.orientechnologies'
 	
 	repositories {
@@ -23,15 +42,12 @@ def orientDB(String orientDBVersion = '1.5.1') {
 	
 	platform {
 		bnd group: orientGroup, {
-			// import orient packages with version
+			// import and export orient packages with version
 			instruction 'Import-Package', "com.orientechnologies.*;version=${orientDBVersion},*"
+			instruction 'Export-Package', "com.orientechnologies.*;version=${orientDBVersion},*"
 		}
 		
-		bundle group: orientGroup, name: 'orientdb-core', {
-			bnd {
-				symbolicName = 'com.orientechnologies.orient.core'
-			}
-		}
+		bundle group: orientGroup, name: 'orientdb-core'
 		
 		/*
 		 * Commons and nativeos must share a classloader.
@@ -47,33 +63,6 @@ def orientDB(String orientDBVersion = '1.5.1') {
 		
 		bnd 'net.java.dev.jna:jna', {
 			// ensure bundle is wrapped to fix bundle version
-		}
-		
-		bundle group: orientGroup, name: 'orientdb-graphdb', {
-			bnd {
-				symbolicName = 'com.orientechnologies.orient.graphdb'
-			}
-		}
-		
-		bundle group: orientGroup, name: 'orientdb-tools', {
-			bnd {
-				symbolicName = 'com.orientechnologies.orient.tools'
-			}
-		}
-		bundle group: orientGroup, name: 'orientdb-client', {
-			bnd {
-				symbolicName = 'com.orientechnologies.orient.client'
-			}
-		}
-		bundle group: orientGroup, name: 'orientdb-server', {
-			bnd {
-				symbolicName = 'com.orientechnologies.orient.server'
-			}
-		}
-		bundle group: orientGroup, name: 'orientdb-enterprise', {
-			bnd {
-				symbolicName = 'com.orientechnologies.orient.enterprise'
-			}
 		}
 	}
 }

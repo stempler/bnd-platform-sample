@@ -23,60 +23,51 @@ repositories {
 // project version is also platform feature version default
 version = '1.2.0'
 
-project.ext {
-	// project specific variables
-	groovyVersion = '2.1.5'
-	schemacrawlerVersion = '8.16'
-}
-
-configurations {
-	platform {
-		// groovy
-		resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-			if (details.requested.group == 'org.codehaus.groovy') {
-				// always use groovy-all instead of (groovy-*)
-				details.useTarget "org.codehaus.groovy:groovy-all:${groovyVersion}"
-			}
-		}
-	}
-}
-
 include {
 	// include modules with platform configuration
-	location('modules/logging.groovy') {
+	
+	// example with advanced dependency configuration
+	// (replacing logging dependencies by slf4j bridges)
+	from('modules/logging.groovy') {
 		slf4jAndLogback '1.7.2', '1.0.10' // slf4j and logback with customized versions
 	}
-	location('modules/geotools.groovy') {
+	
+	// example with merged jars (using match)
+	from('modules/geotools.groovy') {
 		geotools()
 	}
+	
+	// example with merged jars (using bundle)
 	from 'modules/orientdb.groovy', {
 		orientGraphDB()
 	}
+
+	// common bnd configurations (no dependencies added)
+	// also adapts the default configuration
 	from 'modules/common.groovy'
+	
 	from 'modules/schemacrawler.groovy'
+	
+	// example with local jar
+	from 'modules/groovy-sandbox/sandbox.groovy'
+	
+	// ensures that always a fixed version of groovy-all is used as groovy dependency
+	from 'modules/groovy.groovy', {
+		groovyAll '2.1.5', true, 'groovy'
+	}
 }
 
 platform {
 	// platform extension - plugin specific configuration
 	
-	// fetch sources for dependencies if possible (result in source bundles)
+	// fetch sources for dependencies if possible (result in source bundles; enabled by default)
 	fetchSources = true
 	
-	// extend/override the default bnd configuration
-	// the default bnd configuration does not apply to Jars that are already bundles
-	// (to protect the existing imports and exports)
-	bnd {
-		// sun.* and com.sun.* packages are optional by default
-		optionalImport 'sun.*', 'com.sun.*',
-			// unit tests only dependencies should be optional as well 
-			'junit.framework', 'org.junit'
-	}
-	
-	// dependencies can be declared in the extension
+	// Dependencies can be declared in the extension
 	// (in fact, they need to be, if a custom bnd configuration is needed)
-	
-	// groovy
-	bundle "org.codehaus.groovy:groovy-all:${groovyVersion}"
+	// In addition to the bnd configuration 'bundle' definitions can understand
+	// any configuration that a normal dependency does, e.g. excluding transitive
+	// dependencies
 	
 	// security
 	bundle 'org.jasig.cas:cas-client:3.1.10'
@@ -92,18 +83,6 @@ platform {
 		}
 	}
 	bundle group: 'org.pegdown', name: 'pegdown', version: '1.4.2'
-	
-	// local dependencies
-	
-	// single file
-	bundle file('libs/groovy-sandbox-1.6-SNAPSHOT.jar'), {
-		bnd {
-			version = '1.6.0.hale'
-			symbolicName = 'org.kohsuke.groovy.sandbox'
-			bundleName = 'Groovy Sandbox (adapted)'
-			instruction 'Export-Package', "*;version=$version"
-		}
-	}
 	
 	// bnd configurations (just configuration, not adding a dependency)
 	bnd group: 'xml-apis', name: 'xml-apis', {

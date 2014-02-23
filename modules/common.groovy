@@ -2,6 +2,18 @@
  * Common bnd configurations, e.g. to make package imports optional.
  */
 platform {
+	// extend/override the default bnd configuration
+	// the default bnd configuration does not apply to Jars that are already bundles
+	// (to protect the existing imports and exports)
+	bnd {
+		// sun.* and com.sun.* packages are optional by default
+		optionalImport 'sun.*', 'com.sun.*',
+			// unit tests only dependencies should be optional as well
+			'junit.framework', 'org.junit'
+	}
+	
+	// individual bundle configurations
+	
 	bnd 'jdom:jdom', {
 		optionalImport(
 			'oracle.xml.parser',

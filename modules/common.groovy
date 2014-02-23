@@ -18,7 +18,7 @@ platform {
 		optionalImport(
 			'oracle.xml.parser',
 			'oracle.xml.parser.v2',
-			'org.jaxen;resolution',
+			'org.jaxen',
 			'org.jaxen.jdom'
 		)
 	}

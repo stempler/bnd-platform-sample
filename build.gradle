@@ -49,7 +49,7 @@ include {
 	from 'modules/schemacrawler.groovy'
 	
 	// example with local jar
-	from 'modules/groovy-sandbox/sandbox.groovy'
+	from 'modules/groovy-sandbox'
 	
 	// ensures that always a fixed version of groovy-all is used as groovy dependency
 	from 'modules/groovy.groovy', {

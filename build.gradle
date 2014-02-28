@@ -1,6 +1,15 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.standardout:gradle-include-plugin:0.1'
+	}
+}
 
-apply plugin: org.standardout.gradle.plugin.platform.PlatformPlugin
-apply plugin: org.standardout.gradle.plugin.include.IncludePlugin
+apply plugin: 'eclipse'
+apply plugin: 'include' // for including platform modules
+apply plugin: org.standardout.gradle.plugin.platform.PlatformPlugin // from buildSrc submodule
 
 defaultTasks 'clean', 'updateSite'
 
@@ -17,7 +26,6 @@ repositories {
 	maven {
 		url "http://fortytwo.net/maven2"
 	}
-	// ivy {   url "http://repo.mycompany.com/repo"}
 }
 
 // project version is also platform feature version default
@@ -63,7 +71,7 @@ platform {
 	// fetch sources for dependencies if possible (result in source bundles; enabled by default)
 	fetchSources = true
 	
-	// Dependencies can be declared in the extension
+	// Dependencies can be declared in the platform extension
 	// (in fact, they need to be, if a custom bnd configuration is needed)
 	// In addition to the bnd configuration 'bundle' definitions can understand
 	// any configuration that a normal dependency does, e.g. excluding transitive

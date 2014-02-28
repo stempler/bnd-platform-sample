@@ -1,11 +1,16 @@
+interface Const {
+	static final String DEF_VERSION = '1.5.1'
+	static final String ORIENT_GROUP = 'com.orientechnologies'
+}
+
 /**
  * Include Orient Graph database. Calls orientCore(...).
  */
-def orientGraphDB(String orientDBVersion = '1.5.1') {
+def orientGraphDB(String orientDBVersion = Const.DEF_VERSION) {
 	orientCore(orientDBVersion)
 	
 	platform {
-		bundle group: 'com.orientechnologies', name: 'orientdb-graphdb'
+		bundle group: Const.ORIENT_GROUP, name: 'orientdb-graphdb'
 		
 		bnd group: 'com.tinkerpop.gremlin', name: 'gremlin-groovy', {
 			// adapt gremlin configuration
@@ -17,8 +22,8 @@ def orientGraphDB(String orientDBVersion = '1.5.1') {
 /**
  * Orient DB core bundles and fixed versions for all OrientDB bundles.
  */
-def orientCore(String orientDBVersion = '1.5.1') {
-	def orientGroup = 'com.orientechnologies'
+def orientCore(String orientDBVersion = Const.DEF_VERSION) {
+	def orientGroup = Const.ORIENT_GROUP
 	
 	repositories {
 		maven {

@@ -71,6 +71,9 @@ platform {
 	// fetch sources for dependencies if possible (result in source bundles; enabled by default)
 	fetchSources = true
 	
+	// by default limit import package versions to next major version
+	importVersionStrategy = MAJOR
+	
 	// Dependencies can be declared in the platform extension
 	// (in fact, they need to be, if a custom bnd configuration is needed)
 	// In addition to the bnd configuration 'bundle' definitions can understand

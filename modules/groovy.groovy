@@ -22,5 +22,10 @@ def groovyAll(String groovyVersion = '2.1.5', boolean addDependency = true, Stri
 		if (addDependency) {
 			bundle "org.codehaus.groovy:groovy-all:${groovyVersion}"
 		}
+		
+		// configure how bundles having groovy as dependency are configured regarding package imports
+		imports(group: 'org.codehaus.groovy') {
+			versionStrategy = MINIMUM // assume that groovy is backwards compatible
+		}
 	}
 }

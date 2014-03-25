@@ -122,6 +122,10 @@ dependencies {
 	// jackson 2
 	platform 'com.fasterxml.jackson.core:jackson-core:2.3.0'
 	platform 'com.fasterxml.jackson.core:jackson-databind:2.3.0'
+	
+	// explicitly include specific addditional versions of Guava in platform
+	platformaux 'com.google.guava:guava:15.0'
+	platformaux 'com.google.guava:guava:14.0'
 }
 
 task wrapper(type: Wrapper) {

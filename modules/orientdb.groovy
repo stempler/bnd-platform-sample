@@ -66,8 +66,13 @@ def orientCore(String orientDBVersion = Const.DEF_VERSION) {
 			}
 		}
 		
+		bnd 'net.java.dev.jna:jna:3.5.2', {
+			// fix provided bundle version
+			version = '3.5.2'
+		}
 		bnd 'net.java.dev.jna:jna', {
-			// ensure bundle is wrapped to fix bundle version
+			// add versions to package exports
+			instruction 'Export-Package', "*;version=$version"
 		}
 	}
 }

@@ -5,4 +5,6 @@ Sample project using [bnd-platform](https://github.com/stempler/bnd-platform) to
 
 Check out **build.gradle** and the script files in **modules/** to see what you can do with *bnd-platform* and run the build with `./gradlew` or `gradlew.bat` to create OSGi bundles and an Eclipse Update Site from the dependencies configured in the example. The created bundles will reside in **build/plugins**, the p2 repository in **build/updatesite**.
 
+The sample includes a quite big set of dependencies and building the platform will download a lot of stuff and may take some time. So feel free to strip it down for your testing.
+
 When cloning the repository make sure to also initialize and update the submodule, e.g. using `git submodule update --init`.

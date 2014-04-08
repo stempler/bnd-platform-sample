@@ -14,18 +14,12 @@ apply plugin: org.standardout.gradle.plugin.platform.PlatformPlugin // from buil
 defaultTasks 'clean', 'updateSite'
 
 repositories {
-	maven {
-		// must be first (before maven central) so javax.media:jai-core can be resolved
-		url 'http://download.osgeo.org/webdav/geotools/'
-	}
-	mavenLocal()
+	//XXX excluded for now because repository is unreliable
+//	maven {
+//		// must be first (before maven central) so javax.media:jai-core can be resolved
+//		url 'http://download.osgeo.org/webdav/geotools/'
+//	}
 	mavenCentral()
-	maven {
-		url "http://repo.aduna-software.org/maven2/releases"
-	}
-	maven {
-		url "http://fortytwo.net/maven2"
-	}
 }
 
 // project version is also platform feature version default
@@ -41,9 +35,10 @@ include {
 	}
 	
 	// example with merged jars (using match)
-	from('modules/geotools.groovy') {
-		geotools()
-	}
+	//XXX excluded for now because used repositories are unreliable 
+//	from('modules/geotools.groovy') {
+//		geotools()
+//	}
 	
 	// example with merged jars (using bundle)
 	from 'modules/orientdb.groovy', {
@@ -70,9 +65,16 @@ platform {
 	
 	// fetch sources for dependencies if possible (result in source bundles; enabled by default)
 	fetchSources = true
-	
+
+	// generate package imports (experimental)	
+	determineImportVersions = true
 	// by default limit import package versions to next major version
 	importVersionStrategy = MAJOR
+	
+	// dependencies in platformaux get bundle symbolic names augmented with the version
+	// this can help if it is a problem that multiple versions of the same bundle actually
+	// exist (this is for instance not supported in Eclipse RCP plugin-based products)
+	auxVersionedSymbolicNames = true
 	
 	// Dependencies can be declared in the platform extension
 	// (in fact, they need to be, if a custom bnd configuration is needed)

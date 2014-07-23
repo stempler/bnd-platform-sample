@@ -40,11 +40,6 @@ include {
 //		geotools()
 //	}
 	
-	// example with merged jars (using bundle)
-	from 'modules/orientdb.groovy', {
-		orientGraphDB()
-	}
-
 	// common bnd configurations (no dependencies added)
 	// also adapts the default configuration
 	from 'modules/common.groovy'

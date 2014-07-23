@@ -103,12 +103,15 @@ platform {
 		bundleName = 'XML APIs' // set's bundle name
 		instruction 'Private-Package', '' // does not override instruction in previous bnd 
 	}
+	
+	bundle 'org.codehaus.groovy.modules.http-builder:http-builder:0.6', {
+		// exclude this transitive dependency
+		exclude group: 'net.sourceforge.nekohtml', module: 'nekohtml'
+	}
 }
 
 dependencies {
 	// platform dependencies can also be defined here (w/o bnd configuration)
-	
-	platform 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
 	
 	// XML
 	platform 'org.apache.ws.xmlschema:xmlschema-core:2.0.2'

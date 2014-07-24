@@ -24,36 +24,38 @@ def geotools(String geotoolsVersion = '10.4', String bundleVersion = '10.4.0.com
 	}
 	
 	platform {
-		// opengis
-		bundle "org.geotools:gt-opengis:${geotoolsVersion}", {
-			bnd {
-				symbolicName = 'org.opengis'
-			}
-		}
-		
-		// geotools dependencies
-		modules.each {
-			if (it != 'gt-opengis') {
-				bundle "org.geotools:${it}:${geotoolsVersion}"
-			}
-		}
-		
-		// geotools bundle
-		merge {
-			match {
-				it.group == 'org.geotools' && it.name != 'gt-opengis'
+		feature(id: 'platform.geotools', name: 'Geotools Feature', version: geotoolsVersion) {
+			// opengis
+			plugin "org.geotools:gt-opengis:${geotoolsVersion}", {
+				bnd {
+					symbolicName = 'org.opengis'
+				}
 			}
 			
-			bnd {
-				symbolicName = 'org.geotools'
-				bundleName = 'Geotools'
-				version = bundleVersion
-				instruction 'Export-Package', "org.geotools.*;version=$bundleVersion"
-				instruction 'Private-Package', '*'
+			// geotools dependencies
+			modules.each {
+				if (it != 'gt-opengis') {
+					plugin "org.geotools:${it}:${geotoolsVersion}"
+				}
 			}
+			
+			// geotools bundle
+			merge {
+				match {
+					it.group == 'org.geotools' && it.name != 'gt-opengis'
+				}
+				
+				bnd {
+					symbolicName = 'org.geotools'
+					bundleName = 'Geotools'
+					version = bundleVersion
+					instruction 'Export-Package', "org.geotools.*;version=$bundleVersion"
+					instruction 'Private-Package', '*'
+				}
+			}
+			
+			// geotools depends on log4j
+			plugin group: 'log4j', name: 'log4j'
 		}
-		
-		// geotools depends on log4j
-		bundle group: 'log4j', name: 'log4j'
 	}
 }

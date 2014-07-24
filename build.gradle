@@ -14,11 +14,10 @@ apply plugin: org.standardout.gradle.plugin.platform.PlatformPlugin // from buil
 defaultTasks 'clean', 'updateSite'
 
 repositories {
-	//XXX excluded for now because repository is unreliable
-//	maven {
-//		// must be first (before maven central) so javax.media:jai-core can be resolved
-//		url 'http://download.osgeo.org/webdav/geotools/'
-//	}
+	maven {
+		// must be first (before maven central) so javax.media:jai-core can be resolved
+		url 'http://download.osgeo.org/webdav/geotools/'
+	}
 	mavenCentral()
 }
 
@@ -35,10 +34,9 @@ include {
 	}
 	
 	// example with merged jars (using match)
-	//XXX excluded for now because used repositories are unreliable 
-//	from('modules/geotools.groovy') {
-//		geotools()
-//	}
+	from('modules/geotools.groovy') {
+		geotools()
+	}
 	
 	// common bnd configurations (no dependencies added)
 	// also adapts the default configuration
@@ -83,7 +81,6 @@ platform {
 	// utilities
 	bundle 'com.google.guava:guava:16.0.1'
 	bundle 'net.sf.trove4j:trove4j:3.0.3'
-	bundle 'commons-io:commons-io:2.4'
 	bundle 'net.sf.ehcache:ehcache-core:2.6.6', {
 		bnd {
 			// make hibernate packages optional
@@ -104,9 +101,15 @@ platform {
 		instruction 'Private-Package', '' // does not override instruction in previous bnd 
 	}
 	
-	bundle 'org.codehaus.groovy.modules.http-builder:http-builder:0.6', {
-		// exclude this transitive dependency
-		exclude group: 'net.sourceforge.nekohtml', module: 'nekohtml'
+	feature(id: 'platform.restclient', name: 'REST client dependencies') {
+		bundle 'org.codehaus.groovy.modules.http-builder:http-builder:0.6', {
+			// exclude this transitive dependency
+			exclude group: 'net.sourceforge.nekohtml', module: 'nekohtml'
+		}
+		bundle 'commons-io:commons-io:2.4'
+		
+		// include a feature that is defined elsewhere
+		includes << 'platform.geotools'
 	}
 }
 

@@ -1,10 +1,11 @@
 buildscript {
 	repositories {
+		mavenLocal()
 		mavenCentral()
 	}
 	dependencies {
 		classpath 'org.standardout:gradle-include-plugin:0.2.0'
-		classpath 'org.standardout:bnd-platform:1.2.0'
+		classpath 'org.standardout:bnd-platform:1.3.0-SNAPSHOT'
 	}
 }
 

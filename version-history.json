@@ -1,0 +1,191 @@
+{
+    "bundle": {
+        "com.googlecode.json-simple": {
+            "1.1.0": {
+                "i201504": "e3sZVA"
+            }
+        },
+        "com.vividsolutions.jts": {
+            "1.13.0": {
+                "i201504": "jjUZhw"
+            }
+        },
+        "groovy": {
+            "2.1.5": {
+                "i201504": "DjpGrg"
+            }
+        },
+        "hsqldb": {
+            "1.8.0.7": {
+                "i201504": "fKgZWw"
+            }
+        },
+        "java3d.vecmath": {
+            "1.3.2": {
+                "i201504": "fCMZWA"
+            }
+        },
+        "javax.media.jai_core": {
+            "1.1.3": {
+                "i201504": "eYZVw"
+            }
+        },
+        "jdom": {
+            "1.0.0": {
+                "i201504": "e1AZUw"
+            }
+        },
+        "jgridshift": {
+            "1.0.0": {
+                "i201504": "e1AZUw"
+            }
+        },
+        "net.java.dev.jsr-275": {
+            "1.0.0.beta-2": {
+                "i201504": "e1AZUw"
+            }
+        },
+        "net.sf.ehcache.core": {
+            "2.6.6": {
+                "i201504": "r0RWLw"
+            }
+        },
+        "net.sf.ezmorph": {
+            "1.0.6": {
+                "i201504": "dtCzsA"
+            }
+        },
+        "net.sf.json-lib": {
+            "2.3.0": {
+                "i201504": "ON6jdw"
+            }
+        },
+        "net.sf.trove4j": {
+            "3.0.3": {
+                "i201504": "fCUZWA"
+            }
+        },
+        "net.sourceforge.schemacrawler": {
+            "8.16.0": {
+                "i201504": "iqFEw"
+            }
+        },
+        "org.apache.httpcomponents.httpclient": {
+            "4.2.1": {
+                "i201504": "ZhZzlg"
+            }
+        },
+        "org.apache.httpcomponents.httpcore": {
+            "4.2.1": {
+                "i201504": "fFYZWQ"
+            }
+        },
+        "org.codehaus.groovy.modules.http-builder": {
+            "0.6.0": {
+                "i201504": "jEFG3A"
+            }
+        },
+        "org.geotools": {
+            "10.4.0.combined": {
+                "i201504": "Qn9dcw"
+            }
+        },
+        "org.geotools.gt-api": {
+            "10.4.0": {
+                "i201504": "W8J7ng"
+            }
+        },
+        "org.geotools.gt-cql": {
+            "10.4.0": {
+                "i201504": "8Q6foA"
+            }
+        },
+        "org.geotools.gt-data": {
+            "10.4.0": {
+                "i201504": "8Q6foA"
+            }
+        },
+        "org.geotools.gt-epsg-hsql": {
+            "10.4.0": {
+                "i201504": "T7Y2dA"
+            }
+        },
+        "org.geotools.gt-geojson": {
+            "10.4.0": {
+                "i201504": "D966Vw"
+            }
+        },
+        "org.geotools.gt-main": {
+            "10.4.0": {
+                "i201504": "kygPSA"
+            }
+        },
+        "org.geotools.gt-metadata": {
+            "10.4.0": {
+                "i201504": "8piUWg"
+            }
+        },
+        "org.geotools.gt-referencing": {
+            "10.4.0": {
+                "i201504": "vBa8Zw"
+            }
+        },
+        "org.geotools.gt-shapefile": {
+            "10.4.0": {
+                "i201504": "yHCs1g"
+            }
+        },
+        "org.opengis": {
+            "10.4.0": {
+                "i201504": "B5xoGA"
+            }
+        },
+        "org.pegdown": {
+            "1.4.2": {
+                "i201504": "LLFDQ"
+            }
+        },
+        "xml-resolver": {
+            "1.2.0": {
+                "i201504": "e6YZVQ"
+            }
+        },
+        "xmlpull": {
+            "1.1.3.1": {
+                "i201504": "eYZVw"
+            }
+        },
+        "xpp3.xpp3_min": {
+            "1.1.4.c": {
+                "i201504": "fB8ZWA"
+            }
+        },
+        "xstream": {
+            "1.4.5": {
+                "i201504": "A8ou8g"
+            }
+        }
+    },
+    "feature": {
+        "platform.feature": {
+            "1.2.0": {
+                "i201504": "phTMLg"
+            }
+        },
+        "platform.geotools": {
+            "10.4.0": {
+                "i201504": "fHJypQ"
+            }
+        },
+        "platform.groovysandbox": {
+            "1.6.0.hale": {
+                "i201504": "3AYWiw"
+            }
+        },
+        "platform.restclient": {
+            "1.2.0": {
+                "i201504": "m7SiQ"
+            }
+        }
+    }
+}

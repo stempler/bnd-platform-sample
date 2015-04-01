@@ -71,6 +71,11 @@ platform {
 	// exist (this is for instance not supported in Eclipse RCP plugin-based products)
 	auxVersionedSymbolicNames = true
 	
+	// specify map file with version history to achieve changed version numbers
+	// for bnd / feature configuration changes and increasing version numbers at the
+	// same time
+	hashQualifierMap = file('version-history.json')
+	
 	// Dependencies can be declared in the platform extension
 	// (in fact, they need to be, if a custom bnd configuration is needed)
 	// In addition to the bnd configuration 'bundle' definitions can understand

@@ -3,13 +3,14 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath 'org.standardout:gradle-include-plugin:0.1'
+		classpath 'org.standardout:gradle-include-plugin:0.2.0'
+		classpath 'org.standardout:bnd-platform:1.2.0'
 	}
 }
 
 apply plugin: 'eclipse'
-apply plugin: 'include' // for including platform modules
-apply plugin: org.standardout.gradle.plugin.platform.PlatformPlugin // from buildSrc submodule
+apply plugin: 'org.standardout.include' // for including platform modules
+apply plugin: 'org.standardout.bnd-platform'
 
 defaultTasks 'clean', 'updateSite'
 

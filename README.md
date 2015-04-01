@@ -1,9 +1,9 @@
 bnd-platform-sample
 ===================
 
-***Build is currently not working because of issues with the submodule, hope to fix this soon. In the meantime, for a running (if minimal) example check out [bnd-platform-minimal](https://github.com/stempler/bnd-platform-minimal).***
-
 Sample project using [bnd-platform](https://github.com/stempler/bnd-platform) to build a set of OSGi bundles. It also makes use of the [gradle-include-plugin](https://github.com/stempler/gradle-include-plugin) to split the configuration in several modules.
+
+For a minimal example using on *bnd-platform* check out [bnd-platform-minimal](https://github.com/stempler/bnd-platform-minimal).
 
 Check out **build.gradle** and the script files in **modules/** to see what you can do with *bnd-platform* and run the build with `./gradlew` or `gradlew.bat` to create OSGi bundles and an Eclipse Update Site from the dependencies configured in the example. The created bundles will reside in **build/plugins**, the p2 repository in **build/updatesite**.
 

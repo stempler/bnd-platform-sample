@@ -75,6 +75,7 @@ platform {
 	// for bnd / feature configuration changes and increasing version numbers at the
 	// same time
 	hashQualifierMap = file('version-history.json')
+	defaultQualifierMap.baseDate = DAY
 	
 	// Dependencies can be declared in the platform extension
 	// (in fact, they need to be, if a custom bnd configuration is needed)

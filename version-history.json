@@ -85,11 +85,6 @@
                 "i20150402": "jEFG3A"
             }
         },
-        "org.geotools": {
-            "10.4.0.combined": {
-                "i20150402": "Qn9dcw"
-            }
-        },
         "org.geotools.gt-api": {
             "10.4.0": {
                 "i20150402": "W8J7ng"
@@ -185,6 +180,13 @@
         "platform.restclient": {
             "1.2.0": {
                 "i20150402": "J1Clqw"
+            }
+        }
+    },
+    "mergedBundle": {
+        "org.geotools": {
+            "10.4.0.combined": {
+                "i20150402": "Qn9dcw"
             }
         }
     }
